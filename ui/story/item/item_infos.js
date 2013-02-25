@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Item Description Contains title and first paragraph
+ * Item Info Contains title, date, quote number, favicon and website url
  */
 Cotton.UI.Story.Item.Info = Class
     .extend({
@@ -56,12 +56,7 @@ Cotton.UI.Story.Item.Info = Class
           //$title_link.attr("href", this._oItemContent._oItem._oVisitItem.url());
           //$title_link.text(this._oItemContent._oItem._oVisitItem.title());
 
-          this._$title.text(this._oItemContent._oItem._oVisitItem.title()).click(function(){
-            chrome.tabs.create({
-              'url': self._oItemContent._oItem._oVisitItem.url(),
-              'selected': true
-            });
-          });
+          this._$title.text(this._oItemContent._oItem._oVisitItem.title());
         }
 
 				// date
@@ -70,7 +65,19 @@ Cotton.UI.Story.Item.Info = Class
 		    this._$date.text(lDate[2] + " " + lDate[1]);
 		
         // label
+				// favicon
+		    var sFavicon = this._oItemContent.item().visitItem().favicon();
+		    if (sFavicon === "") {
+		      sFavicon = "/media/images/story/item/default_favicon.png";
+		    }
+		    this._$favicon.attr("src", sFavicon);
 
+        // url
+				var sUrl = this._oItemContent.item().visitItem().url();
+				// Extracts www.google.fr from http://www.google.fr/abc/def?q=deiubfds.
+				var oReg = new RegExp("\/\/([^/]*)\/");
+				var sDomain = sUrl.match(oReg)[1];
+				this._$url.text(sDomain);
 		
         // construct item
         this._$itemInfo.append(
@@ -95,47 +102,6 @@ Cotton.UI.Story.Item.Info = Class
 
       appendTo : function(oItemContent) {
         oItemContent.$().append(this._$item_description);
-      },
-
-      /**
-       * Make the title editable.
-       */
-      editTitle : function(bContentItemAlreadyEditable) {
-        var self = this;
-
-        if(!self._sTitleAlreadyEditable && !bContentItemAlreadyEditable){
-          self._sTitleAlreadyEditable = true;
-          // Create an input field to change the title.
-          self._$input_title = $('<input class="ct-editable_title" type="text" name="title">');
-
-          // Set the default value, with the current title.
-          self._$input_title.val(self._$title.text());
-          self._$input_title.keypress(function(event) {
-            // on press 'Enter' event.
-            if (event.which == 13) {
-              var sTitle = self._$input_title.val();
-              self._$title.text(sTitle);
-              self._$input_title.remove();
-              self._$title.show();
-              self._sTitleAlreadyEditable = false;
-
-              // Event tracking
-              Cotton.ANALYTICS.changeItemTitle();
-
-              // Set the title in the model.
-              self._oItemContent.item().visitItem().setTitle(sTitle);
-              self._oItemContent.item().visitItemHasBeenSet();
-            }
-          });
-              
-          // hide the title and replace it by the input field.
-          self._$title.hide();
-          self._$input_title.insertAfter(self._$title);
-        } else {
-          self._$input_title.remove();
-          self._$title.show();
-          self._sTitleAlreadyEditable = false;
-        }
       },
 
     });
