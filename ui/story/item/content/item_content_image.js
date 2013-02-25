@@ -26,7 +26,6 @@ Cotton.UI.Story.Item.Content.Image = Cotton.UI.Story.Item.Content.Element.extend
 	    var oUrl = new UrlParser(this._oItem.visitItem().url());
     	oUrl.fineDecomposition();
       var sImgSrc = this.replaceHexa(oUrl.dSearch['imgurl']);
-console.log(sImgSrc);
       this._$img.attr("src", sImgSrc);
       // this._oItemFeaturedImage.setImageUrl(sImgSrc);
     }
