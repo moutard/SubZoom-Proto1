@@ -24,19 +24,18 @@ Cotton.UI.Story.Item.Website = Class
 				
         // set values
 
-				// favicon
-		    var sFavicon = this._oItemContent.item().visitItem().favicon();
-		    if (sFavicon === "") {
-		      sFavicon = "/media/images/story/item/default_favicon.png";
-		    }
-		    this._$favicon.attr("src", sFavicon);
-
         // url
 				var sUrl = this._oItemContent.item().visitItem().url();
 				// Extracts www.google.fr from http://www.google.fr/abc/def?q=deiubfds.
 				var oReg = new RegExp("\/\/([^/]*)\/");
 				var sDomain = sUrl.match(oReg)[1];
 				this._$url.text(sDomain);
+
+				//favicon
+		    var sFavicon = this._oItemContent.item().visitItem().favicon();
+				  if (sFavicon === "") {
+					  this._$favicon = $('<img class="favicon" src="chrome://favicon/http://'+sDomain+'/">');
+					}
 		
         // construct item
 	  		self._$itemWebsite.append(
