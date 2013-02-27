@@ -54,7 +54,7 @@ Cotton.Controllers.Lightyear = Class.extend({
   },
 
   countItems: function(){
-    var sAllCount = $('.ct-item').length;
+    var sAllCount = $('.ct-story_item').length;
     $('.all_count').text(sAllCount);
     var sArticlesCount = $('.ct-item-default').length;
     $('.articles_count').text(sArticlesCount);
