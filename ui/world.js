@@ -33,6 +33,15 @@ Cotton.UI.World = Class.extend({
 	  });
   },
 
+  createStory : function(lVisitItems){
+		_.each(lVisitItems,function(oVisitItem){
+			var oItem = new Cotton.UI.Story.Item.Element(oVisitItem);
+		});
+  },
+
+  createMenu : function(oStory){
+  	var oMenu = new Cotton.UI.SideMenu.Menu(oStory);
+  }
 });
 
 // We need an object to communicate via BackBone with the algorithm.
