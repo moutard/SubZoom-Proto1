@@ -43,9 +43,9 @@ Cotton.Controllers.Lightyear = Class.extend({
 	    self = self;
       self._oDatabase.getLast('stories', 'fLastVisitTime', function(oLastStory) {
         self._oDatabase.findGroup('visitItems', 'id', oLastStory.visitItemsId(), function(lVisitItems) {
+			// Initialize isotope grid view
+			self.initPlaceItems();
 		      self._oWorld.createStory(lVisitItems);
-					//place items on the grid with isotope
-					self.placeItems();
           self.countItems();
           $('.ct-filter').click(function(){
 					  var selector = $(this).attr('data-filter');
@@ -76,7 +76,7 @@ Cotton.Controllers.Lightyear = Class.extend({
     $('.quotes_count').text(sQuotesCount);
   },
 
-  placeItems: function(){
+  initPlaceItems: function(){
 	  $('.ct-story_container').isotope({
 		  itemSelector : '.ct-story_item',
 		  layoutMode : 'fitColumns',
