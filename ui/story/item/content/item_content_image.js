@@ -16,20 +16,17 @@ Cotton.UI.Story.Item.Content.Image = Cotton.UI.Story.Item.Content.Element.extend
     this._sImageType = sType;
     oItem.$().addClass('ct-item-image');
 		this._$img = $('<img class="resize">');
-		this._oItemMenu = new Cotton.UI.Story.Item.LargeMenu(this);
+		this._oItemMenu = new Cotton.UI.Story.Item.SmallMenu(this);
 
     if (sType === "img") {
       this._$img.attr("src", this._oItem.visitItem().url());
-      // this._oItemFeaturedImage.setImageUrl(this._oItem.visitItem().url());
     }
     if (sType === "imgres") {
 	    var oUrl = new UrlParser(this._oItem.visitItem().url());
     	oUrl.fineDecomposition();
       var sImgSrc = this.replaceHexa(oUrl.dSearch['imgurl']);
       this._$img.attr("src", sImgSrc);
-      // this._oItemFeaturedImage.setImageUrl(sImgSrc);
     }
-    // this._$featured_image.append(this._$img);
     // create the item
 
 		self._$item_content.append(
