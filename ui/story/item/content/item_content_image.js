@@ -24,7 +24,7 @@ Cotton.UI.Story.Item.Content.Image = Cotton.UI.Story.Item.Content.Element.extend
     if (sType === "imgres") {
 	    var oUrl = new UrlParser(this._oItem.visitItem().url());
     	oUrl.fineDecomposition();
-      var sImgSrc = this.replaceHexa(oUrl.dSearch['imgurl']);
+        var sImgSrc = oUrl.replaceHexa(oUrl.dSearch['imgurl']);
       this._$img.attr("src", sImgSrc);
     }
     // create the item
@@ -35,23 +35,6 @@ Cotton.UI.Story.Item.Content.Image = Cotton.UI.Story.Item.Content.Element.extend
 		);
 		
 		this.resize(self._$img);
-  },
-  
-  replaceHexa : function(sImageUrl) {
-    var sImgUrl = sImageUrl;
-    var reg = /\%25/;
-    if (reg.test(sImgUrl)){
-      sImgUrl = sImgUrl.replace(/\%2525/g,'%')
-          .replace(/\%2521/g,'!')
-          .replace(/\%2522/g,'"')
-          .replace(/\%2523/g,'#')
-          .replace(/\%2524/g,'$')
-          .replace(/\%2526/g,'&')
-          .replace(/\%2527/g,"'")
-          .replace(/\%253D/g,'=')
-          .replace(/\%253F/g,'?');
-    }
-    return sImgUrl;
   },
 
   resize : function($img) {
