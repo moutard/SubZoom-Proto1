@@ -17,7 +17,7 @@ Cotton.UI.World = Class.extend({
     var self = this;
     this._$storyContainer = $(".ct-story_container");
     chrome.extension.sendMessage({action: "pass_background_image"}, function(response) {
-      $('#blur_target').css('background-image',"url("+response.src+")");			
+      $('#blur_target').css('background-image',"url("+response.src+")");
       $('body').blurjs({
           source: '#blur_target',
           radius: 15,
