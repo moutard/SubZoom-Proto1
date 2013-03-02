@@ -35,7 +35,6 @@ Cotton.UI.Story.Item.LargeMenu = Class
 		
         // construct item
         self._$itemLargeMenu.append(
-	  			  self._$remove,
 		  		  self._$openLink.append(self._$open)
         );
       },
