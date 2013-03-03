@@ -35,6 +35,8 @@ Cotton.UI.Story.Item.Website = Class
         var sFavicon = this._oItemContent.item().visitItem().favicon();
         if (sFavicon === "") {
           this._$favicon = $('<img class="favicon" src="chrome://favicon/http://'+sDomain+'/">');
+        } else {
+	      this._$favicon = $('<img class="favicon" src="' + sFavicon + '">');
         }
 		
         // construct item
