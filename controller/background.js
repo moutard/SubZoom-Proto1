@@ -258,7 +258,7 @@ Cotton.Controllers.Background = Class.extend({
 
 
 	                          oDatabase.put('visitItems', oVisitItem, function() {
-	                            console.log("update queryKeywords");
+	                            DEBUG && console.debug("update queryKeywords");
 	                          });
 	                        }
 
