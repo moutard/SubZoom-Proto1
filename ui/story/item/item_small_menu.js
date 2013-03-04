@@ -16,6 +16,7 @@ Cotton.UI.Story.Item.SmallMenu = Class
       _$expand : null,
       _$collapse : null,
       _$getContent : null,
+      _$loading : null,
 	  _bGettingContent : null,
 
       init : function(oItemContent) {
@@ -35,6 +36,7 @@ Cotton.UI.Story.Item.SmallMenu = Class
         this._$expand = (bParagraph) ? $('<p class="expand">Expand</p>') : $('');
         this._$getContent = (bParagraph) ? $('') : $('<p class="get_content">Get Content</p>');
         this._$collapse =  $('<p class="collapse">Collapse</p>');
+        this._$loading =  $('<img class="loading" src="/media/images/story/item/default_item/loading.gif">');
 
         //set actions on buttons
 
@@ -74,8 +76,10 @@ Cotton.UI.Story.Item.SmallMenu = Class
 			"active" : false
 		  });
 		  self._bGettingContent = true;
+		  $(this).parent().append(self._$loading);
+          $(this).hide();
 	    });
-	
+
 	    chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 	      if (request["action"] == "get_content" && sender.tab.url == self._oItemContent.item().visitItem().url() && self._bGettingContent){
 	        self._bGettingContent = false;
