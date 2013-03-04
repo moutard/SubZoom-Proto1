@@ -36,6 +36,22 @@ Cotton.UI.Story.Item.SmallMenu = Class
         this._$getContent = (bParagraph) ? $('') : $('<p class="get_content">Get Content</p>');
         this._$collapse =  $('<p class="collapse">Collapse</p>');
 
+        //set actions on buttons
+
+        //remove element
+        this._$remove.click(function(){
+          //TODO(rkorach): use only one db for the whole UI
+	      self._oDatabase = new Cotton.DB.IndexedDB.Wrapper('ct', {
+		      'visitItems' : Cotton.Translators.VISIT_ITEM_TRANSLATORS
+		  }, function() {
+		    self._oDatabase.delete('visitItems', self._oItemContent.item().visitItem().id(),
+		      function() {
+			    self._oItemContent.item().container().isotope('remove', self._oItemContent.item().$());
+		    });
+		  });
+		});
+
+        //expand reader
 		this._$expand.click(function(){
           oItemContent.item().$().css('height', '630px');
           oItemContent.item().container().isotope('reLayout');
@@ -43,6 +59,7 @@ Cotton.UI.Story.Item.SmallMenu = Class
           self._$collapse.toggle();
         });
 
+        //collapse reader
         this._$collapse.click(function(){
           oItemContent.item().$().css('height', '150px');
           oItemContent.item().container().isotope('reLayout');
@@ -50,6 +67,7 @@ Cotton.UI.Story.Item.SmallMenu = Class
           self._$expand.toggle();
         });
 
+        //get content
 	    this._$getContent.click(function(){
 		  chrome.tabs.create({
 			"url" : self._oItemContent.item().visitItem().url(),
@@ -57,7 +75,7 @@ Cotton.UI.Story.Item.SmallMenu = Class
 		  });
 		  self._bGettingContent = true;
 	    });
-
+	
 	    chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 	      if (request["action"] == "get_content" && sender.tab.url == self._oItemContent.item().visitItem().url() && self._bGettingContent){
 	        self._bGettingContent = false;
@@ -73,9 +91,10 @@ Cotton.UI.Story.Item.SmallMenu = Class
         // construct item
         self._$itemMenu.append(
           self._$openLink.append(self._$open),
-	      self._$expand,
-	      self._$collapse,
-	      self._$getContent
+          self._$remove,
+          self._$expand,
+          self._$collapse,
+          self._$getContent
         );
       },
 
