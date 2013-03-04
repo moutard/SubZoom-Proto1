@@ -26,7 +26,7 @@ Cotton.UI.Story.Item.SmallMenu = Class
 
         // current sub elements
         this._$remove = $('<p>Remove</p>');
-        this._$openLink = $('<a href="" target="blank"></a>');
+        this._$openLink = $('<a href="" target="_blank"></a>');
         this._$open = $('<p>Open</p>');
         this._$expand = $('<p>Expand</p>');
 
