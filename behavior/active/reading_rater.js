@@ -102,6 +102,7 @@ Cotton.Behavior.Active.ReadingRater = Class.extend({
         sync.current().extractedDNA().setImageUrl(sBestImg);
         sync.updateVisit();
       }
+      sync.setImage(true);
 
       var sFavicon = self._oParser.favicon();
       if (sFavicon) {
@@ -255,6 +256,7 @@ Cotton.Behavior.Active.ReadingRater = Class.extend({
       oParagraph.setId(oScore.id());
       oParagraph.setPercent(oScore.score());
       sync.current().extractedDNA().addParagraph(oParagraph);
+      sync.setParagraph(true);
 
       fPageScore += oScore.score() * (this.iTotalSurface / iTotalPageSurface);
     });
