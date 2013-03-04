@@ -25,15 +25,15 @@ Cotton.UI.Story.Item.Content.Default = Cotton.UI.Story.Item.Content.Element.exte
 
     // create the item
     oItem.$().addClass('ct-item-default');
-		this._$item_content.append(
-      this._oItemFeaturedImage.$(),
-      this._$itemInfo.append(
-	      this._oItemTitle.$(),
-	      this._oItemDate.$(),
-	      this._oItemQuoteIndicator.$(),
-	      this._oItemLabel.$(),
-        this._oItemMenu.$()
-	    )
+      this._$item_content.append(
+        this._oItemFeaturedImage.$(),
+        this._$itemInfo.append(
+          this._oItemTitle.$(),
+          this._oItemDate.$(),
+          this._oItemQuoteIndicator.$(),
+          this._oItemLabel.$(),
+       this._oItemMenu.$()
+      )
     );
   },
 
