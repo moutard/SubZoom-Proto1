@@ -57,16 +57,16 @@ Cotton.UI.Story.Item.SmallMenu = Class
 		this._$expand.click(function(){
           oItemContent.item().$().css('height', '630px');
           oItemContent.item().container().isotope('reLayout');
-          $(this).toggle();
-          self._$collapse.toggle();
+          $(this).hide();
+          self._$collapse.show();
         });
 
         //collapse reader
         this._$collapse.click(function(){
           oItemContent.item().$().css('height', '150px');
           oItemContent.item().container().isotope('reLayout');
-          $(this).toggle();
-          self._$expand.toggle();
+          $(this).hide();
+          self._$expand.show();
         });
 
         //get content
@@ -100,6 +100,11 @@ Cotton.UI.Story.Item.SmallMenu = Class
           self._$collapse,
           self._$getContent
         );
+
+		// if the item is constructed from a reload (i.e getContent), expand it.
+		if (this._oItemContent.item().isReloaded()){
+	      self._$expand.click();
+        }
       },
 
       $ : function() {
