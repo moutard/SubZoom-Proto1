@@ -32,7 +32,9 @@ Cotton.UI.Story.Item.SmallMenu = Class
         this._$remove = $('<p>Remove</p>');
         this._$openLink = $('<a href="" target="_blank"></a>');
         this._$open = $('<p>Open</p>');
-        var bParagraph = (oItemContent.item().visitItem().extractedDNA().paragraphs().length > 0) || (oItemContent.item().visitItem().extractedDNA().firstParagraph() !== "");
+        var bParagraph = ((oItemContent.item().visitItem().extractedDNA().allParagraphs().length > 0) 
+|| (oItemContent.item().visitItem().extractedDNA().paragraphs().length > 0)
+|| (oItemContent.item().visitItem().extractedDNA().firstParagraph() != "") );
         this._$expand = (bParagraph) ? $('<p class="expand">Expand</p>') : $('');
         //do not append 'Get Content' if it has already been performed or
         //if there is a paragraph 
@@ -89,6 +91,10 @@ Cotton.UI.Story.Item.SmallMenu = Class
 	        self._bGettingContent = false;
 	        chrome.tabs.remove(sender.tab.id);
 	        self._oItemContent.item().reload();
+          }
+		  if (request["action"] && (request["action"] == "is_get_content") && sender.tab.url == self._oItemContent.item().visitItem().url() && self._bGettingContent) {
+            sendResponse({"getting_content":true});
+            console.log()
           }
 		});
 
