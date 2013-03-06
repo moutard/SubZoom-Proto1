@@ -32,10 +32,13 @@ Cotton.UI.Story.Item.Website = Class
         this._$url.text(sDomain);
         
         //favicon
-        var reg = new RegExp("wikipedia", "g");
-        if (reg.exec(sDomain)){
+        var wikiReg = new RegExp("wikipedia", "g");
+        var googleReg = new RegExp("google", "g");
+        if (wikiReg.exec(sDomain)){
           this._$favicon = $('<img class="favicon" src="chrome://favicon/http://www.wikipedia.org/">');
-        } else{
+        } else if (googleReg.exec(sDomain)) {
+          this._$favicon = $('<img class="favicon" src="chrome://favicon/https://www.google.com/">');          
+        } else {
           this._$favicon = $('<img class="favicon" src="chrome://favicon/http://'+sDomain+'/">');
         }
 		
