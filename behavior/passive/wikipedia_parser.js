@@ -11,10 +11,6 @@
 
 Cotton.Behavior.Passive.WikipediaParser = Cotton.Behavior.Passive.Parser
     .extend({
-      /**
-       * Used to stored the detected favicon.
-       */
-      _sFavicon : null,
 
       /**
        * Used to stored the detected best image.
@@ -69,17 +65,6 @@ Cotton.Behavior.Passive.WikipediaParser = Cotton.Behavior.Passive.Parser
        */
       parse : function() {
 
-        // Find the favicon
-        var sFavicon = $("link[rel$=icon]").attr("href");
-        var oRegexp = new RegExp("^http://");
-        if (!oRegexp.test(sFavicon)) {
-          sFavicon = window.location.origin + '/' + sFavicon;
-        }
-        this._sFavicon = sFavicon;
-
-        sync.current().setFavicon(this._sFavicon);
-        sync.updateVisit();
-
         // Detect inforbox.
         this._$InfoBox = $('.infobox');
         if (this._$InfoBox.length === 0) {
@@ -118,9 +103,7 @@ Cotton.Behavior.Passive.WikipediaParser = Cotton.Behavior.Passive.Parser
           sync.current().extractedDNA().setImageUrl(this._sBestImage);
           sync.setImage(this._sBestImage);
           sync.updateVisit();
-          console.log(this._sBestImage);
         }
-          console.log("this._sBestImage");
         return self._sBestImage;
       },
 
