@@ -94,7 +94,6 @@ Cotton.UI.Story.Item.SmallMenu = Class
           }
 		  if (request["action"] && (request["action"] == "is_get_content") && sender.tab.url == self._oItemContent.item().visitItem().url() && self._bGettingContent) {
             sendResponse({"getting_content":true});
-            console.log()
           }
 		});
 
