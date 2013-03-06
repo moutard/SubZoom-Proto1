@@ -51,10 +51,19 @@ Cotton.Controllers.Background = Class.extend({
             self.update();
           } else {
             // pass
-            chrome.browserAction.enable();
           }
     });
-		
+
+	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+        if (tab.url.slice(0,7) !== "http://" 
+            && tab.url.slice(0,19) !=="https://www.google."){
+	    //TODO(rkorach) use regex
+          chrome.browserAction.disable(tabId);
+        } else {
+          chrome.browserAction.enable(tabId);
+        }
+    });
+
     chrome.browserAction.onClicked.addListener(function() {
       self.takeScreenshot();
       // chrome.tabs.getSelected is now deprecated. chrome.tabs.query is used instead
@@ -375,7 +384,6 @@ Cotton.Controllers.Background = Class.extend({
         }
         DEBUG && console.debug(lAllVisitDict);
         self._wDBSCAN3.postMessage(lAllVisitDict);
-        chrome.browserAction.enable();
       });
     });
 
