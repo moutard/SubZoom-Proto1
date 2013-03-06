@@ -38,7 +38,7 @@ Cotton.UI.Story.Item.SmallMenu = Class
         this._$expand = (bParagraph) ? $('<p class="expand">Expand</p>') : $('');
         //do not append 'Get Content' if it has already been performed or
         //if there is a paragraph 
-	    this._$getContent = (bParagraph || this._oItemContent.item().isReloaded()) ? $('') : $('<p class="get_content">Get Content</p>');
+	    this._$getContent = (bParagraph || this._oItemContent.item().isReloaded() || oItemContent.item().itemType() !== "default") ? $('') : $('<p class="get_content">Get Content</p>');
         this._$collapse =  $('<p class="collapse">Collapse</p>');
         this._$loading =  $('<img class="loading" src="/media/images/story/item/default_item/loading.gif">');
 
