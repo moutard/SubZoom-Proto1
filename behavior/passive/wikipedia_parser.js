@@ -32,7 +32,15 @@ Cotton.Behavior.Passive.WikipediaParser = Cotton.Behavior.Passive.Parser
        */
       _$InfoBox : undefined,
 
-      _sImage : null,
+      /**
+       * All paragraphs, for reader
+       */
+      _lAllParagraphs : null,
+
+      /**
+       * Is it called from a getContent
+       */
+      _bContentGetter : null,
 
       /**
        * @constructor
@@ -42,6 +50,16 @@ Cotton.Behavior.Passive.WikipediaParser = Cotton.Behavior.Passive.Parser
 
         this._MeaningFulBlocks = [];
         this._iNbMeaningfulBlock = 0;
+        this._lAllParagraphs = [];
+        this._sBestImage = "";
+        this._bContentGetter = false;
+        chrome.extension.sendMessage({
+	        "action":"is_get_content"
+        }, function(response){
+	      if (response["getting_content"] == true){
+            self._bContentGetter = true;
+          }
+        });
       },
 
       /**
@@ -86,13 +104,23 @@ Cotton.Behavior.Passive.WikipediaParser = Cotton.Behavior.Passive.Parser
        */
       findBestImage : function() {
         var self = this;
-        if (self._$InfoBox.length === 0) {
+        if (self._$InfoBox.length !== 0) {
           self._sBestImage = self._$InfoBox.find('.image:first img')
               .attr('src');
           // Get the first one, but we can do much better.
         } else {
           self._sBestImage = $('div.thumbinner:first img').attr('src');
         }
+        if (self._sBestImage && self._sBestImage.slice(0,2) === "//"){
+          self._sBestImage = "http:" + self._sBestImage;
+        }
+        if (self._bContentGetter) {
+          sync.current().extractedDNA().setImageUrl(this._sBestImage);
+          sync.setImage(this._sBestImage);
+          sync.updateVisit();
+          console.log(this._sBestImage);
+        }
+          console.log("this._sBestImage");
         return self._sBestImage;
       },
 
