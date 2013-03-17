@@ -36,7 +36,7 @@ Cotton.Controllers.Lightyear = Class.extend({
     $(window).ready(function(){
       Cotton.UI.oWorld = self._oWorld = new Cotton.UI.World();
       chrome.extension.sendMessage({
-        action: 'get_trigger_story'
+        'action': 'get_trigger_story'
       }, function(response){
         self.buildStory(response['trigger_id']);
       });
@@ -45,23 +45,24 @@ Cotton.Controllers.Lightyear = Class.extend({
 
   buildStory : function(iStoryId) {
     var self = this;
+    console.log('build story');
     self._oDatabase = new Cotton.DB.IndexedDB.Wrapper('ct', {
         'stories' : Cotton.Translators.STORY_TRANSLATORS,
         'historyItems' : Cotton.Translators.HISTORY_ITEM_TRANSLATORS
     }, function() {
-	  self = self;
       self._oDatabase.find('stories', 'id', iStoryId, function(oStory) {
-	console.log(iStoryId);
-	console.log(oStory.historyItemsId());
-        self._oDatabase.findGroup('historyItems', 'id', oStory.historyItemsId(),
+	    console.log(iStoryId);
+	    console.log(oStory.historyItemsId());
+      self._oDatabase.findGroup('historyItems', 'id', oStory.historyItemsId(),
         function(lHistoryItems) {
+          console.log('find historyItems attached to story.');
           // Initialize isotope grid view
           self.initPlaceItems();
           self._oWorld.createStory(lHistoryItems);
           self.countItems();
           $('.ct-filter').click(function(){
             var selector = $(this).attr('data-filter');
-            $('.ct-story_container').isotope({ filter: selector });
+            $('.ct-story_container').isotope({ 'filter': selector });
 	        return false;
           });
         });
@@ -90,8 +91,8 @@ Cotton.Controllers.Lightyear = Class.extend({
 
   initPlaceItems: function(){
     $('.ct-story_container').isotope({
-        itemSelector : '.ct-story_item',
-        layoutMode : 'fitColumns',
+        'itemSelector' : '.ct-story_item',
+        'layoutMode' : 'fitColumns',
     });
   }
 

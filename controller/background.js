@@ -108,7 +108,7 @@ Cotton.Controllers.Background = Class.extend({
     });
     chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
 			if (request.image == "background"){
-				sendResponse({src: self._sImageSrc});
+				sendResponse({'src': self._sImageSrc});
 			}
     });
 
