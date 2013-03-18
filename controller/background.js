@@ -103,15 +103,9 @@ Cotton.Controllers.Background = Class.extend({
 	self._iTriggerStory = self._dTabStory[lTabs[0].id];
         chrome.tabs.update(lTabs[0].id, {'url':'lightyear.html'},function(){
 	      // TODO(rkorach) : delete ct page from history
+	      });
 	    });
-	  });
     });
-    chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
-			if (request['action'] == "pass_background_screenshot"){
-				sendResponse({'src': self._sScreenshotSrc});
-			}
-    });
-
   },
 
   /**
