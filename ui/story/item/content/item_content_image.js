@@ -29,7 +29,6 @@ Cotton.UI.Story.Item.Content.Image = Cotton.UI.Story.Item.Content.Element.extend
     }
 
     oItem.historyItem().extractedDNA().setImageUrl(sImgSrc);
-    oItem.world().lightyear().setStoryImage();
 
     // create the item
 		self._$item_content.append(
