@@ -104,6 +104,7 @@ Cotton.Controllers.Messaging = Class.extend({
                   // There is a story for this item, so enable the browserAction
                   // and attach a storyId to the tab
 	          chrome.browserAction.enable(sender.tab.id);
+	                console.log('browserAction-enable');
                   self._oMainController.setTabStory(sender.tab.id, oMinStory.id());
 
                 } else {
